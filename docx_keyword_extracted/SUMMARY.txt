@@ -1,0 +1,6 @@
+input_text_element -> ..\docx_keyword_extracted\input_text_element.py
+click_text_element -> ..\docx_keyword_extracted\click_text_element.py
+upload_file -> ..\docx_keyword_extracted\upload_file.py
+upload_xiti -> ..\docx_keyword_extracted\upload_xiti.py
+ai_assert -> ..\docx_keyword_extracted\ai_assert.py
+ai_action_merge -> ..\docx_keyword_extracted\ai_action_merge.py

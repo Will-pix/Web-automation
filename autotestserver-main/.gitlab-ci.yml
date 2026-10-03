@@ -1,0 +1,40 @@
+variables:
+  DOCKER_REGISTRY: docker.yc345.tv
+  K8S_DEPLOYMENT: autotestserver
+  NAMESPACE: 7to12
+  HOME: /builds
+
+stages:
+- build_test
+- deploy_test
+
+【测试环境】镜像构建:
+  stage: build_test
+  image: docker:19.03.13
+  only:
+  - main
+  script:
+  - echo $CI_PROJECT_DIR
+  - docker login --username=$DOCKER_USERNAME $DOCKER_REGISTRY -p $DOCKER_PASSWORD
+  # 新增：传递私钥变量到 Docker 构建
+  - docker build --build-arg auto_ssh_service="$auto_ssh_service" -t $DOCKER_REGISTRY/$NAMESPACE/$K8S_DEPLOYMENT:$CI_COMMIT_SHORT_SHA .
+  - docker push $DOCKER_REGISTRY/$NAMESPACE/$K8S_DEPLOYMENT:$CI_COMMIT_SHORT_SHA
+  tags:
+    - cluster
+    - kubernetes
+
+【测试环境】容器发布:
+  stage: deploy_test
+  image: docker.yc345.tv/7to12/kubectl:1.20.1-bitnami
+  only:
+  - main
+  script:
+  - kubectl config set-cluster test-cluster --server=https://localk8s.yc345.tv:6443 --insecure-skip-tls-verify=true
+  - kubectl config set-credentials gitlab-ci --token=$KUBE_TOKEN_TEST
+  - kubectl config set-context testenv --cluster=test-cluster --user=gitlab-ci && kubectl config use-context testenv
+  - kubectl -n $NAMESPACE set image deployment $K8S_DEPLOYMENT $K8S_DEPLOYMENT=$DOCKER_REGISTRY/$NAMESPACE/$K8S_DEPLOYMENT:$CI_COMMIT_SHORT_SHA --record
+  - kubectl -n $NAMESPACE rollout status deployment $K8S_DEPLOYMENT
+  tags:
+    - cluster
+    - kubernetes
+

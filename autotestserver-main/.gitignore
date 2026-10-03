@@ -1,0 +1,15 @@
+.pytest_cache
+.idea
+*.pyc
+__pycache__
+.env
+**/.ENV
+.env.js
+webtest/report/*
+webtest/testfile/*
+.github
+docker-compose.yml
+1test1.py
+mysql
+.DS_Store
+webtest/file/*

@@ -1,0 +1,64 @@
+{
+  "login": {
+    "mode": "mixed"
+  },
+  "feishu": {
+    "app_id": "",
+    "app_secret": "",
+    "redirect_uri": "",
+    "auto_register": true,
+    "default_role": "user",
+    "require_approval": false
+  },
+  "branding": {
+    "platform_name": "Web Automation Studio",
+    "primary_color": "#1f6feb",
+    "accent_color": "#22c55e",
+    "support_url": ""
+  },
+  "ai": {
+    "provider_name": "Doubao",
+    "api_base": "https://ark.cn-beijing.volces.com/api/v3",
+    "api_key": "",
+    "model_name": "doubao-pro-4k",
+    "request_path": "/chat/completions",
+    "vision_model_name": "doubao-1-5-ui-tars-250428",
+    "text_model_name": "doubao-seed-1-6-250615"
+  },
+  "deployment": {
+    "backend_port": 8000,
+    "frontend_port": 8080,
+    "mysql_host": "mysql",
+    "mysql_port": 3306,
+    "mysql_db": "hcdb",
+    "mysql_user": "root",
+    "mysql_password": "123456",
+    "public_base_url": "",
+    "docker_backend_image": "python:3.11-slim",
+    "docker_frontend_node_image": "node:18-alpine",
+    "docker_frontend_nginx_image": "nginx:1.27-alpine"
+  },
+  "browser_previews": [
+    {
+      "name": "Browser Driver 1",
+      "url": ""
+    },
+    {
+      "name": "Browser Driver 2",
+      "url": ""
+    },
+    {
+      "name": "Browser Driver 3",
+      "url": ""
+    },
+    {
+      "name": "Browser Driver 4",
+      "url": ""
+    }
+  ],
+  "notification": {
+    "platform": "feishu",
+    "webhook_url": "",
+    "enabled": false
+  }
+}
